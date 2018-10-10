@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'common.java.helper'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '1.1.1'
+    compile group: 'io.swagger', name: 'swagger-annotations', version: '1.5.21'
+    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+}
