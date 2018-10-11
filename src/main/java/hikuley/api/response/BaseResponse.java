@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.StringJoiner;
 
 @ApiModel
-public class BaseApiResponse {
+public class BaseResponse {
 
     public static final class Builder {
 
@@ -17,9 +17,10 @@ public class BaseApiResponse {
         private boolean success = true;
         private String responseCode;
         private String responseMessage;
+        private ResponseErrorDetail error;
 
-        public BaseApiResponse build() {
-            BaseApiResponse response = new BaseApiResponse();
+        public BaseResponse build() {
+            BaseResponse response = new BaseResponse();
 
             response.id = this.id;
             response.timestamp = this.timestamp;
@@ -29,7 +30,7 @@ public class BaseApiResponse {
             return response;
         }
 
-        public Builder withFault(ResponseFaultDetail fault) {
+        public Builder withError(ResponseErrorDetail error) {
             this.success = false;
             return this;
         }
@@ -76,27 +77,27 @@ public class BaseApiResponse {
     @ApiModelProperty(notes = "Default description for the response code")
     private String responseMessage;
 
-    @ApiModelProperty(notes = "Optional detail of the fault if the response is not success")
-    private ResponseFaultDetail fault;
+    @ApiModelProperty(notes = "Optional detail of the error if the response is not success")
+    private ResponseErrorDetail error;
 
-    public BaseApiResponse() {
+    public BaseResponse() {
         this.timestamp = System.currentTimeMillis();
     }
 
-    public BaseApiResponse(String id, boolean success) {
+    public BaseResponse(String id, boolean success) {
         this.id = id;
         this.success = success;
         this.timestamp = System.currentTimeMillis();
     }
 
-    public BaseApiResponse(String id, boolean success, String responseCode) {
+    public BaseResponse(String id, boolean success, String responseCode) {
         this.id = id;
         this.success = success;
         this.responseCode = responseCode;
         this.timestamp = System.currentTimeMillis();
     }
 
-    public BaseApiResponse(String id, boolean success, String responseCode, String responseMessage) {
+    public BaseResponse(String id, boolean success, String responseCode, String responseMessage) {
         this.id = id;
         this.success = success;
         this.responseCode = responseCode;
@@ -104,8 +105,8 @@ public class BaseApiResponse {
         this.timestamp = System.currentTimeMillis();
     }
 
-    public ResponseFaultDetail getFault() {
-        return fault;
+    public ResponseErrorDetail getError() {
+        return error;
     }
 
     public String getId() {
@@ -128,8 +129,8 @@ public class BaseApiResponse {
         return success;
     }
 
-    public void setFault(ResponseFaultDetail fault) {
-        this.fault = fault;
+    public void setError(ResponseErrorDetail error) {
+        this.error = error;
     }
 
     public void setId(String id) {
@@ -154,7 +155,7 @@ public class BaseApiResponse {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", BaseApiResponse.class.getSimpleName() + "[", "]").add("id='" + id + "'")
+        return new StringJoiner(", ", BaseResponse.class.getSimpleName() + "[", "]").add("id='" + id + "'")
                 .add("success=" + success).add("responseCode='" + responseCode + "'")
                 .add("responseMessage='" + responseMessage + "'").toString();
     }
